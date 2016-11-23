@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ECE 4760: Ultra-secure Programmable Lockbox</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+					<h1 id="logo">Ultra-secure Programmable Lockbox</h1>
+					<p>FILL THIS<br />
+					FILL THIS</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#two">High-level Design</a></li>
+						<li><a href="#three">Hardware/Program Details</a></li>
+						<li><a href="#four">Results</a></li>
+						<li><a href="#five">Conclusions</a></li>
+						<li><a href="#six">Appendix</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<!--ul class="icons">
+						<li><a href="https://github.com/JustinSelig/BluetoothGuitarAmp" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto:jss459@cornell.edu?Subject=ECE 4760%20Guitar%20Amp" class="icon fa-envelope"><span class="label">Email</span></a></li>
+					</ul-->
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						
+						<!-- One: Overview -->
+							<section id="one">
+								<div class="container">
+									<header class="major">
+										<h2>Ultra-secure Programmable Lockbox</h2>
+										<p>Adarsh Jayakumar <br/>Timon Amarani <br/>Cameron Boroumand <br/>
+										</p>
+									</header>
+									<p> Our final project for ECE 4760: Digital Systems Design Using Microcontrollers is an ultra-secure programmable lockbox. The box itself can be unlocked using a keypad, three tunable knobs, a 'knocking' pattern (through a piezo electric sensor), and a fingerprint sensor. These locking mechanisms must all be triggered in the correct order with directions displayed on a TFT LCD screen. Additionally, after being unlocked, new passwords, combinations, and fingerprints can be stored based upon the user's desire <br/><br/>This lockbox is a highly marketable product which provides real security in a unique way. In particular, this product may appeal to younger children who would like to have a toy box that no one but themselves can unlock. In addition, this box is equipped with a lot of nuanced programmable hardware which may perk the interest of those interested in DIY electronics </p>
+								</div>
+							</section>
+
+						<!-- Two: High Level Design -->
+							<section id="two">
+								<div class="container">
+									<h3>High-Level Design</h3>
+																		
+										
+									</ul>
+										
+										<h5>Details</h5>
+									<p><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. The   </p>
+								
+									<p> </p>
+								</div>
+						</section>
+									
+						<!-- Three: Detailed Design -->
+						<section id="three">
+							<div class="container">
+									<h3>Analog Circuitry</h3>
+									<p>A large portion of the project was devoted to building and testing standard analog circuitry for each portion of the lockbox. The schematics for these are included below.</p>
+									<div class="features">
+										<article>
+											<a <span class="image left"><img src="images/Piezo+Pot.PNG" width=400px alt="" /><i>Figure 2: Potentiometer and Piezo Schematic</i></a>
+											<div class="inner">
+												<h4>Potentiometer and Piezo</h4>
+												<p>The potentiometer and piezo circuitry was accomplished through the addition of an analog multiplexer. This multiplexer was used in order to simplify the code necessary for the potentiometers and piezo-electric sensor by reducing the amount of adc ports running from four to one. The three potentiometers acted as tunable knobs for the user to set and unlock the box, similar to a classic safe. Each potentiometer had one end terminal connected to Vdd (3.3 Volts) and the other end terminal conected to ground. The wiper of each potentiometer was connected through a 330 Ohm resistor to the first three inputs of the multiplexer. Meanwhile, the piezo electric sensor acted as another safety mechanism for the box. The negative terminal of the piezo electric sensor was connected to ground. The positive terminal of the piezo electric was connected to the fourth input of the multiplexer in parallel with a 1 Megaohm resistor to ground. The multiplexer was powered through Vdd (3.3 Volts) with its INH, Vee, and Vss terminals all tied to ground. Because only four inputs were required, select signal 'C' was also grounded. Select signals 'A' and 'B' were connected to digital pins of the microcontroller (pins 14 and 26 respectively) with the output of the mux connected to an analog pin (pin 24).  </p>
+											</div>
+										</article>
+										<article>
+											<a <span class="image left"><img src="images/lab4_motor_circuit.png" width=400px alt="" /><i>Figure 3: Solenoid Valve Circuit</i></a>
+											<div class="inner">
+												<h4>Solenoid Valve </h4>
+												<p>A solenoid is driven high by the Arduino to unlock the box.</p>
+											</div>
+										</article>
+										<article>
+											
+											<div class="inner">
+												<h4>Keypad and TFT</h4>
+												<p></p>
+											</div>
+										</article>
+									</div>
+								</div>
+								
+										
+										<h3><a href="code.html">Software</a></h3>
+									<h4>Keypad</h4>
+									<p>This thread contains the finite state machine (FSM) that debounces the button, the code which stores key presses into a buffer and triggers playback of said buffer, and the triggering of the voice as each button is pressed.  The finite state machine, as described in class, can be found below:
+                                                The finite state machine begins in the ‘Release’ state by checking to see if the keycode is equal to -1. It does this by spawning the scanKey thread, which polls for key presses, by using the PT_SPAWN() function.  The thread then yields for 30 milliseconds using PT_YIELD_TIME_msec(30). If keycode is equal to -1, that means no button has been pressed and we return back to the ‘Release’ state through the ‘Yes’ transition. If keycode is not equal to -1, we go through the ‘No’ transition to the ‘MaybePush’ state, storing our value of keycode into a new variable possible along the way. Within the ‘MaybePush’ state, we check to see if keycode is equal to possible, meaning that nothing has changed and the button press seems to be stable. If the answer is ‘No’, we go back to our ‘Release’ state and call our scanKey thread. If the answer is ‘Yes’, the most important portion of the FSM occurs. In the transition from the MaybePushed to the ‘Pushed’ state, the digits are stored (as the possible values), and voice/DTMF playback occurs depending on which button has been pressed. Using the keycode variable set in the scanKey thread, and a separate counter variable, buf_count, valid key presses (i.e. keys zero through nine) are placed inside a buffer called key_buf, which supports a maximum of twelve digits.  While the key press is being placed in the buffer, PT_SPAWN is being used to call the setVoice thread, which sets the starting and ending indices of the proper number, as described in the pt_setVoice portion. This triggers the voice to be spoken out of the DAC via the ISR.  If the key pressed is not a valid number, then the digit is not added to the buffer.  The thread then continues to check the pound_key and restart_key flags.  
+
+
+Within the ‘Pushed’ state, we once again check if keycode is equal to possible. If the answer is ‘Yes’, we call our scankey thread and feedback into our ‘Pushed’ state. If the answer is ‘No’, we enter into the ‘MaybeNoPush’ state. Within the ‘MaybeNoPush’ state, we check if keycode is equal to possible. If the answer is ‘Yes’, we must check if our keypad is properly debounced by returning to our ‘Pushed’ state and calling the scankey thread. If the answer is ‘No’, we simply return back to the ‘Release’ state and call our scankey thread.
+                                    </p>
+                                    <h4>Potentiometers</h4>
+                                    <p>We use ADC to continously read the outputs of the three potentiometers. We then map these values from (0,1024) to (100,999). We do this so that the user can only input 3-digit potentiometer values. We display this value on the screen so that the user can observe the values being input to the screen.
+
+
+</p>
+                                    <h4>Piezo</h4>
+                                    <p></p>
+                                    <h4>Keypad</h4>
+                                    <p></p>
+									<h4>Command Thread</h4>
+									<p>We set up a simple command thread that chose which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. Once the box has been unlocked, the command thread 
+                                    </p>
+                                   
+									</div>
+									
+								</div>
+							</section>
+						
+						<!-- Four -->
+							<section id="four">
+								<div class="container">
+										<h3>Results</h3>
+                                    <h5>Bluetooth</h5>
+                                    
+   
+ 
+<h5> Integration </h5>
+
+									
+									</section>
+								</div>
+							</section>
+				
+						<section id="five">
+							<div class="container">
+								<h3>Conclusions</h3>
+								
+								<h5>Standards</h5>
+								
+								<h5>Intellectual Property Considerations</h5>
+								
+								<h5>Ethical Considerations</h5>
+								
+							    <h5>Legal Considerations</h5>
+                                
+                                <h2> Acknowledgements </h2>
+                                <p>
+                                    Thank you Bruce Land.
+                                    
+                                </p>
+                            </div>		
+						</section>
+
+						<section id="six">
+							<div class="container">
+								<h2>Appendix</h2>
+								<ul class="actions">
+									<li><!--<a href="code.html">--><input type="submit" class="special" value="Commented Code"></a></li>
+                                    <li><!--<a href="schematics.html">--><input type="submit" class="special" value="Schematics"></a></li>
+                                    <li></li>
+								</ul>
+							</div>
+						</section>
+
+							<section>
+								<div class="container">
+								
+										<h4>Parts List</h4>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Link</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+                                                    
+													<tr>
+														<td><!--BTSE-16FX DSP Module--></td>
+														<td><!--This module provides 16 digital audio effects for our amplifier.--></td>
+														<td><!--https://www.tubesandmore.com/products/P-<br>RKBTSE-16FX--></td>
+														<td><!--$29.95--></td>
+													</tr>
+													
+													
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="3"></td>
+														<td>Place total here</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+								</div>
+						</section>
+				
+					<section>
+						<div class="container">
+							<h3>References</h3>
+                            <h5>Datasheets</h5>
+							<ul>
+								<li><!--DSP Chip: <a href="">http://www.tubeampdoctor.com/images/File/BTSE-16FX_%20Accutronics%20DIGITAL%20SOUND%20EFFECTOR.pdf</a>--></li>
+								
+							</ul>
+                            
+                            
+                            <h5>Figures</h5>
+                            <ul>
+                                <li><!--Figures 1, 9: digikey.com/schemeit--></li>
+                                
+                            </ul>
+                            <h5>Tasks Carried Out By Team Members</h5>
+                            <ul>
+                                <li>Cameron:</li>
+                                <li>Adarsh:</li>
+                                <li>Timon:</li>
+                            </ul>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved.</li><!--<li>Designed by <a href="http://www.justin-selig.com">Justin Selig</a></li>-->
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
