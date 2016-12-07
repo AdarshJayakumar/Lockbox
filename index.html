@@ -62,10 +62,18 @@
 										
 <!--									</ul>-->
 										
-										<h5>Details</h5>
-									<p><span class="image right"><img src="images/lockbox_front.jpg" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. The factory settings themselves are as follows: the password is set to 1-2-3-4, the tunable potentiometer knobs are set to unlock at values between 330-370, the knock pattern is set to WHAT???, and the user sends in a fingerprint, or a set of fingerprints, when ordering the box for ultimate security.  Upon retrieving the box, the user unlocks it for the first time and them can reset the four digit password, the unlocking values of each potentiometer, and the knocking pattern.</p>
+										<h4>Details</h4>
+									<p><span class="image right"><img src="images/lockbox_front.jpg" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. The factory settings themselves are as follows: the password is set to 1-2-3-4, the tunable potentiometer knobs are set to unlock at a decimal value of 350, with a 20 value threshold above or below, the knock pattern is set to a knock, pause, knock, knock; finally, the user sends in a fingerprint, or a set of fingerprints, when ordering the box for ultimate security.  Upon retrieving the box, the user unlocks it for the first time and them can reset the four digit password, the unlocking values of each potentiometer, and the knocking pattern.</p>
+                                    
+                                        <h4>Flow Chart</h4>
+                                        <p><span class="image left"><img src="images/flowchart.JPG" width=400px alt="" /><i>Figure 2: Flow Chart</i></span> The user progresses through the system in accordance to the flowchart, starting with the passcode, then moving on to the tunable potentiometers, then onto the piezo sensor for knocking, and finally onto the fingerprint scanner. The code and hardware was done in such a manner that the user must go through in this way.  
+                                        
+                                    
+                                    
+                                    
+                                        </p>
 								
-									<p> </p>
+									
 								</div>
 						</section>
 									
@@ -76,7 +84,7 @@
 									<p>A large portion of the project was devoted to building and testing standard analog circuitry for each portion of the lockbox. The schematics for these are included below.</p>
 									<div class="features">
 										<article>
-                                            <a <span class="image right"><img src="images/Piezo+Pot.PNG" width=400px alt="" /><i>Figure 2: Potentiometer and Piezo Schematic</i></a>
+                                            <a <span class="image right"><img src="images/Piezo+Pot.PNG" width=400px alt="" /><i>Figure 3: Potentiometer and Piezo Schematic</i></a>
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Potentiometer and Piezo</h4>
@@ -89,14 +97,14 @@
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Solenoid Valve </h4>
-												<p>A solenoid is driven high by the Arduino to unlock the box. Same here, just gotta fill the space! FILLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL</p>
+												<p>A 12 volt solenoid circuit was used to drive the valve high and low based upon the voltage from a microcontroller digital output pin. The basis of this circuit was taken from Bruce Land’s ECE 4760 Lab 4 project page (Link here). The circuit acts as a first order low-pass filter when the valve is off and a second-order low-pass filter when the valve is on. In order to safeguard all components and the MCU from any inductive spikes of the valve, a 4N35 opto-isolator was utilized to separate ‘valve ground’ and ‘MCU ground’. The BUZ73 FET sets the voltage of the valve based on the signal generated from the opto-isolator transistor. A 1 MΩ resistor was placed at the base of the opto-isolator’s transistor in order to optimize the fall time of the solenoid. In addition, a 100 nF capacitor was placed in parallel with the valve in order to filter noise from the input to the valve. Finally, the FET was protected from inductive spikes through the flyback diode in parallel with the valve. This flyback diode essentially cycles energy back to the power source and back through the valve instead of the transistor when the valve is transitioning from a high to low state.</p>
 											</div>
 										</article>
 										<article>
 											<a <span class="image right"><img src="images/keypad_brl4.JPG" width=400px alt="" />
-                                            <i>Figure 3: Keypad Diagram</i></a>
+                                            <i>Figure 4: Keypad Diagram</i></a>
                                             <a <span class="image right"><img src="images/tft_in_action.JPG" width=400px alt="" />
-                                            <i>Figure 4: TFT LCD Screen</i></a>
+                                            <i>Figure 5: TFT LCD Screen</i></a>
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Keypad and TFT</h4>
@@ -116,7 +124,7 @@
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Fingerprint Scanner</h4>
-												<p> The fingerprint scanner was connected to the PIC32 through an external connection through an Arduino microcontroller. The Arduino was used due to the fact that there is public source code, linked <a href="https://raw.githubusercontent.com/sparkfun/Fingerprint_Scanner-TTL/master/FPS_GT511C3/Examples/FPS_IDFinger/FPS_IDFinger.ino">here</a>.  The Arduino communicated with the PIC32 by outputting a 5V signal whenever a correct fingerprint was 
+												<p> The fingerprint scanner was connected to the PIC32 through an external connection through an Arduino microcontroller. The fingerprint scanner was connected via a 4-pin JST terminal with connections to VDD, ground, RX, and TX (pins 4, 5 on the Arduino). The Arduino was used due to the fact that there is public source code, linked <a href="https://raw.githubusercontent.com/sparkfun/Fingerprint_Scanner-TTL/master/FPS_GT511C3/Examples/FPS_IDFinger/FPS_IDFinger.ino">here</a>.  The Arduino communicated with the PIC32 by outputting a 5V signal from pin 12 to the PIC microstick whenever a correct fingerprint was detected. In addition to sending a signal to the PIC32, a signal was sent to the solenoid valve to unlock the box, as the fingerprint scanner is the final security measure.
                                                 </p>
 											</div>
 										</article>
@@ -130,7 +138,8 @@
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Power</h4>
-												<p> There were three separate voltage rails that needed to be supplied for this product: 12 Volts for the Solenoid valve, 5 volts for the Arduino and 3.3 Volts for the PIC32, multiplexer, and solenoid circuit. We used a 12 Volt AC-DC wall adapter and two linear regulators in order to provide all of these power rails. The wall adapter plugged into a barrel jack on the back of the box which went straight to the 12 volt rail for the solenoid valve. 
+												<p> <a <span class="image right"><img src="images/back_of_box.jpg" width=400px alt="" />
+                                                <i>Figure 6: Back of Lockbox</i></a>There were three separate voltage rails that needed to be supplied for this product: 12 Volts for the Solenoid valve, 5 volts for the Arduino and 3.3 Volts for the PIC32, multiplexer, and solenoid circuit. We used a 12 Volt AC-DC wall adapter and two linear regulators in order to provide all of these power rails. The wall adapter plugged into a barrel jack on the back of the box which went straight to the 12 volt rail for the solenoid valve. 
 
                                                 A LM340 5 Volt LDO regulator and MCP1702 3.3 Volt LDO regulator were supplied with 12 volts and produced 5 volts and 3.3 volts respectively. Each of these regulators contained two 100 nF capacitors (one from input to ground and another from output to ground) in order to reduce transient voltage fluctuations caused by rapid changes in load current. The grounds for the 5 volt and 3.3 volt rails were shorted together (in order to create a common ground) and optically isolated from the 12 volt rail ground. A final 100 nF capacitor was placed between the positive and negative 12 volt rails in order to prevent transient voltage spikes whenever the solenoid valve was triggered.
                                                 </p>
@@ -150,7 +159,7 @@
 Within the ‘Pushed’ state, we once again check if keycode is equal to possible. If the answer is ‘Yes’, we call our scankey thread and feedback into our ‘Pushed’ state. If the answer is ‘No’, we enter into the ‘MaybeNoPush’ state. Within the ‘MaybeNoPush’ state, we check if keycode is equal to possible. If the answer is ‘Yes’, we must check if our keypad is properly debounced by returning to our ‘Pushed’ state and calling the scankey thread. If the answer is ‘No’, we simply return back to the ‘Release’ state and call our scankey thread.
                                     </p>
                                     <h4>Potentiometers</h4>
-                                    <p>We use ADC to continously read the outputs of the three potentiometers. We then map these values from (0,1024) to (100,999). We do this so that the user can only input 3-digit potentiometer values. We display this value on the screen so that the user can observe the values being input to the screen.
+                                    <p>We use ADC to continously read the outputs of the three potentiometers. We then map these values from (0,1024) to (100,999) using a simple linear mapping. We do this so that the user can only input 3-digit potentiometer values. We display this value on the screen so that the user can observe the values being input to the screen. If the potentiometers are within 20 of the locking value, the stage is passed, and the code moves on to the piezo thread to detect knocking. A threshold value was used due to the instability of the potentiometers in terms of staying on one value for the time needed to unlock the stage.
 
 
 </p>
@@ -176,7 +185,7 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                                     
                                     <h4> Integration </h4>
                                      
-                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 5: Lockbox Layout</i></span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning needed to be done to make the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were all placed inside the box itself. 
+                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 7: Lockbox Layout</i></span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning needed to be done to make the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were all placed inside the box itself. 
                                     </p>
                                     
                                     <h4> Safety in Design</h4>
@@ -238,17 +247,65 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                                                 </thead>
                                                     <tbody>
 													<tr>
-														<td>BTSE-16FX DSP Module</td>
-														<td>This module provides 16 digital audio effects for our amplifier.</td>
-														<td>https://www.tubesandmore.com/products/P-<br>RKBTSE-16FX</td>
-														<td>$29.95</td>
+														<td>5 V TTL Fingerprint Scanner</td>
+														<td>Provides fingerprint functionality</td>
+														<td><a href="https://www.sparkfun.com/products/13007" target="_blank">>Link</a></td>
+														<td>$31.95</td>
+													</tr>
+                                                    <tr>
+														<td>12 V Lock-style Solenoid</td>
+														<td>Locks/Unlocks the box</td>
+														<td><a href="https://www.adafruit.com/product/1512" target="_blank">Link</a></td>
+														<td>$14.95</td>
+													</tr>
+                                                    <tr>
+														<td>Large Piezo Element</td>
+														<td>Provides knocking functionality</td>
+														<td><a href="https://www.adafruit.com/product/1739" target="_blank">Link</a></td>
+														<td>$0.95</td>
+													</tr>
+                                                    <tr>
+														<td>Arduino Uno</td>
+														<td>Microcontroller for fingerprint functionality</td>
+														<td><a href="http://www.ebay.com/p/?iid=391193054695&ul_noapp=true,true&chn=ps&lpid=82,82" target="_blank">Link</a></td>
+														<td>$6.61</td>
+													</tr>
+                                                    <tr>
+														<td>Microstick II</td>
+														<td>For programming and temporarily mounting the PIC32</td>
+														<td><a href="http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DM330013-2" target="_blank">Link</a></td>
+														<td>$10.00, Rental</td>
+													</tr>
+                                                    <tr>
+														<td>Protoboard</td>
+														<td>Permanent mounting of circuit components</td>
+														<td>N/A</td>
+														<td>$2.50</td>
+													</tr>
+                                                    <tr>
+														<td>Wooden Box</td>
+														<td>Box that holds all circuitry and stored items</td>
+														<td><a href="https://www.amazon.com/gp/product/B004I9SLEG/ref=od_aui_detailpages00?ie=UTF8&psc=1" target="_blank">Link</a></td>
+														<td>$13.55</td>
+													</tr>
+                                                    <tr>
+														<td>TFT LCD</td>
+														<td>Acts as GUI for lockbox</td>
+														<td>N/A</td>
+														<td>$5.00</td>
+													</tr>
+                                                    <tr>
+														<td>Keypad</td>
+														<td>Interface for keypad combination</td>
+														<td>N/A</td>
+														<td>$6.00</td>
 													</tr>
 													
 												</tbody>
 												<tfoot>
 													<tr>
 														<td colspan="3"></td>
-														<td>Place total here</td>
+														<td>Total: $91.51</td>
 													</tr>
 												</tfoot>
 											</table>
@@ -261,7 +318,13 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 							<h3>References</h3>
                             <h5>Datasheets</h5>
 							<ul>
-								<li><!--DSP Chip: <a href="">http://www.tubeampdoctor.com/images/File/BTSE-16FX_%20Accutronics%20DIGITAL%20SOUND%20EFFECTOR.pdf</a>--></li>
+								<li><a href=http://ww1.microchip.com/downloads/en/DeviceDoc/22008E.pdf target="_blank">MCP1702 3.3V Regulator</a></li>
+                                <li><a href=http://datasheetz.com/data/Integrated%20Circuits%20(ICs)/Voltage%20Regulators%20-%20Linear/LM340LAZ-5.0-datasheetz.html target="_blank">LM340 5V Regulator</a></li>    
+                                <li><a href= http://www.ti.com/lit/ds/symlink/cd4053b.pdf target="_blank">CD4051BE 8-bit Mux</a></li> 
+                                <li><a href="https://cdn.sparkfun.com/datasheets/Sensors/Biometric/GT-511C1R_datasheet_V2-2016-10-25.pdf" target="_blank">Fingerprint Scanner</a></li>    
+                                <li><a href="https://cdn-shop.adafruit.com/product-files/1512/lock_style_solenoid.pdf" target="_blank">Solenoid Valve</a></li>    
+                                
+                                
 								
 							</ul>
                             
