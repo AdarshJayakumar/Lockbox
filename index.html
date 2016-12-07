@@ -15,8 +15,8 @@
 				<header>
 					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
 					<h1 id="logo">Ultra-secure Programmable Lockbox</h1>
-					<p>FILL THIS<br />
-					FILL THIS</p>
+					<p>ECE 4760 Final Project<br />
+					Fall 2016</p>
 				</header>
 				<nav id="nav">
 					<ul>
@@ -47,7 +47,7 @@
 								<div class="container">
 									<header class="major">
 										<h2>Ultra-secure Programmable Lockbox</h2>
-										<p>Adarsh Jayakumar <br/>Timon Amarani <br/>Cameron Boroumand <br/>
+										<p>Adarsh Jayakumar <br/>Timon Amirani <br/>Cameron Boroumand <br/>
 										</p>
 									</header>
 									<p> Our final project for ECE 4760: Digital Systems Design Using Microcontrollers is an ultra-secure programmable lockbox. The box itself can be unlocked using a keypad, three tunable knobs, a 'knocking' pattern (through a piezo electric sensor), and a fingerprint sensor. These locking mechanisms must all be triggered in the correct order with directions displayed on a TFT LCD screen. Additionally, after being unlocked, new passwords, combinations, and fingerprints can be stored based upon the user's desire <br/><br/>This lockbox is a highly marketable product which provides real security in a unique way. In particular, this product may appeal to younger children who would like to have a toy box that no one but themselves can unlock. In addition, this box is equipped with a lot of nuanced programmable hardware which may perk the interest of those interested in DIY electronics </p>
@@ -63,7 +63,7 @@
 									</ul>
 										
 										<h5>Details</h5>
-									<p><span class="image left"><img src="images/HardwareBlockDiagram.png" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. As long as we fill up all this space, the thing should be fine. Fill it FILLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL </p>
+									<p><span class="image left"><img src="images/lockbox_front.jpg" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. The factory settings themselves are as follows: the passcode is set to 1-2-3-4, the tunable potentiometer knobs are set to unlock at values between 330-370, the knock pattern is set to WHAT???, and the user sends in a fingerprint, or a set of fingerprints, when ordering the box for ultimate security.  Upon retrieving the box, the user unlocks it for the first time and them can reset the four digit password, the unlocking values of each potentiometer, and the knocking pattern.</p>
 								
 									<p> </p>
 								</div>
@@ -93,7 +93,10 @@
 											<a <span class="image left"><img src="images/lab4_motor_circuit.png" width=400px alt="" /><i>Figure 3: DO KEYPAD CIRCUIT</i></a>
 											<div class="inner">
 												<h4>Keypad and TFT</h4>
-												<p> And fill this space! FILLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL</p>
+												<p> The keypad used for entering an unlocking code was the same used in Lab 2 in the creations of the DTMF dialer.  It used seven pins on the PIC32, with rows 1-4 taking up pins 2, 3, 9, and 10 on the PIC32, and columns 1-3 taking up pins 16-18 on the PIC32 microcontroller.  The keypad uses 10 kiloOhm pull-down resistors on each column to provide a viable path to ground from the column pins, and uses 300 Ohm resistors on the rows to provide a viable path to ground from the row pins. Each switch connects a row wire to a column wire. 
+                                                
+                                                The TFT LCD screen was used to interact with the user as they unlock the box. The connections to the screen itself takes pins 4, 5, 6, 22, and 25 on the PIC32 microcontroller.  As the user goes through each step to unlock the box, the TFT displays information such as the unlocking step, or is used for feedback of information such as potentiometer values or the current passcode being entered.
+                                                </p>
 											</div>
 										</article>
 									</div>
@@ -156,7 +159,7 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                                 
                                 <h2> Acknowledgements </h2>
                                 <p>
-                                    Thank you Bruce Land.
+                                    We wanted to thank our Professor, Dr. Bruce Land, for helping the team work through each of these projects by providing valuable insight and advice.  Additionally, we would like to thank each of the TAs for the course, especially Andrew Palmer.
                                     
                                 </p>
                             </div>		
@@ -226,7 +229,7 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                             <ul>
                                 <li>Cameron: Worked on the software.</li>
                                 <li>Adarsh:</li>
-                                <li>Timon:</li>
+                                <li>Timon: Wrote keypad code and worked on integration of the box and </li>
                             </ul>
 						</div>
 					</section>
