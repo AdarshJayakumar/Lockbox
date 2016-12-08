@@ -124,7 +124,7 @@
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Fingerprint Scanner</h4>
-												<p> The fingerprint scanner was connected to the PIC32 through an external connection through an Arduino microcontroller. The fingerprint scanner was connected via a 4-pin JST terminal with connections to VDD, ground, RX, and TX (pins 4, 5 on the Arduino). The Arduino was used due to the fact that there is public source code, linked <a href="https://raw.githubusercontent.com/sparkfun/Fingerprint_Scanner-TTL/master/FPS_GT511C3/Examples/FPS_IDFinger/FPS_IDFinger.ino">here</a>.  The Arduino communicated with the PIC32 by outputting a 5V signal from pin 12 to the PIC microstick whenever a correct fingerprint was detected. In addition to sending a signal to the PIC32, a signal was sent to the solenoid valve to unlock the box, as the fingerprint scanner is the final security measure.
+												<p> The fingerprint scanner was connected to the PIC32 through an external connection through an Arduino microcontroller. The fingerprint scanner was connected via a 4-pin JST terminal with connections to VDD, ground, RX, and TX (pins 4, 5 on the Arduino). The Arduino was used due to the fact that there is public source code, linked <a href="https://raw.githubusercontent.com/sparkfun/Fingerprint_Scanner-TTL/master/FPS_GT511C3/Examples/FPS_IDFinger/FPS_IDFinger.ino">here</a>.  The Arduino communicated with the PIC32 by outputting a 5V signal from pin 12 to the PIC32 microstick whenever a correct fingerprint was detected. In addition to sending a signal to the PIC32, a signal was sent to the solenoid valve to unlock the box, as the fingerprint scanner is the final security measure.
                                                 </p>
 											</div>
 										</article>
@@ -178,7 +178,7 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
 
-                                    <p></p>
+                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked. </p>
                                     <p></p>
 									<h4>Command Thread</h4>
 									<p>We set up a simple command thread that chooses which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. This sets up cascading system quite nicely, as a user can only be in the potentiometer stage, for example, after they have passed the keypad stage. Once the box has been unlocked, the command thread moves into the configuration state, in which the user can choose to change the keypad, potentiometer, or piezo lock. At this configuration state, the user can also choose to return to the unlocking stage to unlock the box again and run through the four cascading systems.
