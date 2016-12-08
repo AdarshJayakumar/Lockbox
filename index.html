@@ -108,7 +108,7 @@
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Keypad and TFT</h4>
-												<p> The keypad used for entering an unlocking code was the same used in Lab 2 in the creations of the DTMF dialer.  It used seven pins on the PIC32, with rows 1-4 taking up pins 2, 3, 9, and 10 on the PIC32, and columns 1-3 taking up pins 16-18 on the PIC32 microcontroller.  The keypad uses 10 kiloOhm pull-down resistors on each column to provide a viable path to ground from the column pins, and uses 300 Ohm resistors on the rows to provide a viable path to ground from the row pins. Each switch connects a row wire to a column wire. 
+												<p> The keypad used for entering an unlocking code was the same as the keypad used in Lab 2 in the implementation of the DTMF dialer.  It used seven pins on the PIC32, with rows 1-4 taking up pins 2, 3, 9, and 10 on the PIC32, and columns 1-3 taking up pins 16-18 on the PIC32 microcontroller.  The keypad uses 10 kiloOhm pull-down resistors on each column to provide a viable path to ground from the column pins, and uses 300 Ohm resistors on the rows to provide a viable path to ground from the row pins. Each switch connects a row wire to a column wire. 
                                                 
                                                 The TFT LCD screen was used to interact with the user as they unlock the box. The connections to the screen itself takes pins 4, 5, 6, 22, and 25 on the PIC32 microcontroller.  As the user goes through each step to unlock the box, the TFT displays information such as the unlocking step, or is used for feedback of information such as potentiometer values or the current passcode being entered.
                                                 </p>
@@ -159,7 +159,12 @@
 Within the ‘Pushed’ state, we once again check if keycode is equal to possible. If the answer is ‘Yes’, we call our scankey thread and feedback into our ‘Pushed’ state. If the answer is ‘No’, we enter into the ‘MaybeNoPush’ state. Within the ‘MaybeNoPush’ state, we check if keycode is equal to possible. If the answer is ‘Yes’, we must check if our keypad is properly debounced by returning to our ‘Pushed’ state and calling the scankey thread. If the answer is ‘No’, we simply return back to the ‘Release’ state and call our scankey thread.
                                     </p>
                                     <h4>Potentiometers</h4>
-                                    <p>We use ADC to continously read the outputs of the three potentiometers. We then map these values from (0,1024) to (100,999) using a simple linear mapping. We do this so that the user can only input 3-digit potentiometer values. We display this value on the screen so that the user can observe the values being input to the screen. If the potentiometers are within 20 of the locking value, the stage is passed, and the code moves on to the piezo thread to detect knocking. A threshold value was used due to the instability of the potentiometers in terms of staying on one value for the time needed to unlock the stage.
+                                    <p>We use ADC channels to continously read the outputs of the three potentiometers. We then map these values from (0,1024) to (100,999) using a simple linear mapping so that the user can only input 3-digit potentiometer values. We display this value on the screen so that the user can easily adjust the potentiometer knobs to the correct combination. Each potentiometer has its own unlocking value, and any number that is within 30 of that value is considered valid. For example, if the left potentiometer has an unlocking value of 230, then the user must input a value between 200 and 260 on the left potentiometer. We allow a range of plus or minus 30 to allow for a nicer user experience since the values read from the potentiometers oscillate slightly. The range could be modified to a smaller one to increase security.
+
+                                    <br/><br/>
+
+                                    The PIC32 records the time at which the user has input valid values on each potentiometer. It then continues to poll the three potentiometers to ensure that the valid values are held for 2 seconds. If any of the potentiometer values leave their valid range before the two second countdown, then the potentiometer stage is not passed and the user must again input the correct values. IF the values are held for the full two seconds, then this stage is unlocked. We require the user to hold the correct values for two seconds so that a rogue user cannot simply continously twist and turn the knobs and hope to pass the correct values just once to unlock this stage. Once this stage is unlocked, the user moves onto the piezo stage.
+
 
 
 </p>
@@ -178,8 +183,11 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
 
-                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked. </p>
+                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked. It remains unlocked for three seconds, after which the solenoid valve closes again. The PIC32, moves onto the programmability state. </p>
                                     <p></p>
+
+                                    <h4>Programmability</h4>
+                                    <p>The keypad code, potentiometer combination, and piezo knock pattern can each be customized by the user. Once the box is unlocked, the user is given a list choose to change any of these passwords</p>
 									<h4>Command Thread</h4>
 									<p>We set up a simple command thread that chooses which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. This sets up cascading system quite nicely, as a user can only be in the potentiometer stage, for example, after they have passed the keypad stage. Once the box has been unlocked, the command thread moves into the configuration state, in which the user can choose to change the keypad, potentiometer, or piezo lock. At this configuration state, the user can also choose to return to the unlocking stage to unlock the box again and run through the four cascading systems.
                                     </p>
