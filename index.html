@@ -64,7 +64,8 @@
 <!--									</ul>-->
 										
 										<h4>Details</h4>
-									<p><span class="image right"><img src="images/lockbox_front.jpg" width=400px alt="" /><i>Figure 1: Initial Design Idea</i></span>The lockbox comes installed with factory settings. That is, the keypad passoword, potentiometer knob combination, knocking pattern, and fingerprint are preset. The factory settings are as follows: the password is set to 1-2-3-4, the tunable potentiometer knobs are set to unlock at a decimal value of 350, with a 30 value threshold above or below, the knock pattern is set to a knock, pause, knock, knock; finally, the user sends in a fingerprint, or a set of fingerprints, when ordering the box for ultimate security.  Upon retrieving the box, the user unlocks it for the first time and them can reset the four digit password, the unlocking values of each potentiometer, and the knocking pattern.</p>
+                                    
+									<p><span class="image right"><img src="images/lockbox_front.jpg" width=400px alt="" /><i><a id="fig1">Figure 1: Initial Design Idea</a></i></span>The lockbox comes installed with factory settings. That is, the keypad passoword, potentiometer knob combination, knocking pattern, and fingerprint are preset. The factory settings are as follows: the password is set to 1-2-3-4, the tunable potentiometer knobs are set to unlock at a decimal value of 350, with a 30 value threshold above or below, the knock pattern is set to a knock, pause, knock, knock; finally, the user sends in a fingerprint, or a set of fingerprints, when ordering the box for ultimate security.  Upon retrieving the box, the user unlocks it for the first time and them can reset the four digit password, the unlocking values of each potentiometer, and the knocking pattern.</p>
                                     
                                         <h4>Flow Chart</h4>
                                         <p><span class="image left"><img src="images/flowchart.JPG" width=400px alt="" /><i>Figure 2: Flow Chart</i></span> The user progresses through the system in accordance to the flowchart, starting with the passcode, then moving on to the tunable potentiometers, then onto the piezo sensor for knocking, and finally onto the fingerprint scanner. The code and hardware was done in such a manner that the user must go through in this way.  
@@ -92,7 +93,7 @@
 											</div>
 										</article>
 										<article>
-											<a <span class="image left"><img src="images/lab4_motor_circuit.png" width=400px alt="" /><i>Figure 3: Solenoid Valve Circuit</i></a>
+											<a <span class="image right"><img src="images/lab4_motor_circuit.png" width=400px alt="" /><i>Figure 4: Solenoid Valve Circuit</i></a>
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Solenoid Valve </h4>
@@ -101,9 +102,9 @@
 										</article>
 										<article>
 											<a <span class="image right"><img src="images/keypad_brl4.JPG" width=400px alt="" />
-                                            <i>Figure 4: Keypad Diagram</i></a>
+                                            <i>Figure 5: Keypad Diagram </i></a>
                                             <a <span class="image right"><img src="images/tft_in_action.JPG" width=400px alt="" />
-                                            <i>Figure 5: TFT LCD Screen</i></a>
+                                            <i>Figure 6: TFT LCD Screen credit to </i></a>
 <!--											<div /*class="inner"*/>-->
                                             <div>
 												<h4>Keypad and TFT</h4>
@@ -138,7 +139,7 @@
                                             <div>
 												<h4>Power</h4>
 												<p> <a <span class="image right"><img src="images/back_of_box.jpg" width=400px alt="" />
-                                                <i>Figure 6: Back of Lockbox</i></a>There were three separate voltage rails that needed to be supplied for this product: 12 Volts for the Solenoid valve, 5 volts for the Arduino and 3.3 Volts for the PIC32, multiplexer, and solenoid circuit. We used a 12 Volt AC-DC wall adapter and two linear regulators in order to provide all of these power rails. The wall adapter plugged into a barrel jack on the back of the box which went straight to the 12 volt rail for the solenoid valve. 
+                                                <i>Figure 7: Back of Lockbox</i></a>There were three separate voltage rails that needed to be supplied for this product: 12 Volts for the Solenoid valve, 5 volts for the Arduino and 3.3 Volts for the PIC32, multiplexer, and solenoid circuit. We used a 12 Volt AC-DC wall adapter and two linear regulators in order to provide all of these power rails. The wall adapter plugged into a barrel jack on the back of the box which went straight to the 12 volt rail for the solenoid valve. 
 
                                                 A LM340 5 Volt LDO regulator and MCP1702 3.3 Volt LDO regulator were supplied with 12 volts and produced 5 volts and 3.3 volts respectively. Each of these regulators contained two 100 nF capacitors (one from input to ground and another from output to ground) in order to reduce transient voltage fluctuations caused by rapid changes in load current. The grounds for the 5 volt and 3.3 volt rails were shorted together (in order to create a common ground) and optically isolated from the 12 volt rail ground. A final 100 nF capacitor was placed between the positive and negative 12 volt rails in order to prevent transient voltage spikes whenever the solenoid valve was triggered.
                                                 </p>
@@ -185,16 +186,17 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 						<!-- Four -->
 							<section id="five">
 								<div class="container">
-										<h3>Results</h3>
+								    <h3>Results</h3>
                                     
-   
-                                    
+                                    <h4> Usability </h4>
+                                    <p> This product is very easily usable by the general population, and is intended for those of all ages with basic reading and thinking skills. The box runs through each state, giving visual feedback to the user when each stage is reached and passed, as well as easy to follow instructions on resetting passcodes and such.</p>
+                                        
                                     <h4> Integration </h4>
-                                     
-                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 7: Lockbox Layout</i></span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning needed to be done to make the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were all placed inside the box itself. 
+                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 8: Lockbox Layout</i></span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning needed to be done to make the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were all placed inside the box itself. 
                                     </p>
                                     
                                     <h4> Safety in Design</h4>
+                                    <p> This design is not seen to be a dangerous product.  Some harm could come upon the user if the box is accidently closed on a finger.</p>
                                     
                                     <h4> Video Demonstration </h4>
                                     <iframe width="640" height="360" src="https://www.youtube.com/embed/VDu1fERQY6U" frameborder="0" allowfullscreen></iframe>
@@ -207,22 +209,26 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 						<section id="six">
 							<div class="container">
 								<h3>Conclusions</h3>
-								
-								<h5>Standards</h5>
-								<p> </p>
-								<h5>Intellectual Property Considerations</h5>
-								<p>While working on this project, we drew extensively from work we had previously done in the course. In particular, we used the keycode state machine implemented in lab 2. We also went back to our code in lab 3 to reacquaint ourselves with the ADC software setup. The TFT display helper functions and PT thread were taken from lab2 of ECE 4760 and were written by Bruce Land and Syed Tahmid Mahbub.
+								<p> When designing the box, the team kept in mind the importance of each step following one after the other, to increase the security of the box. Each goal was met, with the keypad, potentiometers, piezo scanner, and fingerprint scanner being integrated into the design. The one element of the project proposal which was not integrated was the note detector. The team felt that this was unnecessary due to the fact that the vast majority of people could not pass this test without some exterior instrument or device. In addition, a four stage lock box with a final stage of a fingerprint scanner was felt to be very secure. <br/><br/> If our team were to do this project over again, we would focus right away on the reprogrammability aspect of the fingerprint scanner, as well as proper communication between the Arduino and PIC32, perhaps over an SPI or UART channel. The reprogrammability was not something foreseen by our team, which made that aspect of the project, especially with the fingerprint scanner, complicated. However, we feel our team did an excellent job of meeting the specifications put forth.</p>
+                                
+								<h4>Standards</h4>
+								<p> There are no known standards relevant to our project as there is no wireless connectivity into this project. However, all parts of our project will satisfy any IEEE standards.</p>
+                                
+								<h4>Intellectual Property Considerations</h4>
+								<p>While working on this project, we drew extensively from work we had previously done in the course. In particular, we used the keycode state machine implemented in lab 2. We also went back to our code in lab 3 to reacquaint ourselves with the ADC software setup. The TFT display helper functions and PT thread were taken from lab2 of ECE 4760 and were written by Bruce Land and Syed Tahmid Mahbub. Additionally, we used open source code for the Arduino in dealing with the fingerprint scanner, written by <a href="https://github.com/sparkfun/Fingerprint_Scanner-TTL" target="_blank">Josh Hawley</a>. It was asked that we include the original license message, which is as follows: <br/><br/>" Created by Josh Hawley, July 23rd 2013 Licensed for non-commercial use, must include this license message basically, Feel free to hack away at it, but just give me credit for my work =) TLDR; Wil Wheaton's Law ". 
 
-								 We did not, however, take any code or designs from outside sources and thus we did not deal with any patent or trademark issues.<br/><br/> We look forward to working towards publishing our work next semester. We ask that anyone who wants to use our work for any purposes to first acquire our consent.</p>
+								 <br/><br/> We look forward to working towards publishing our work next semester. We ask that anyone who wants to use our work for any purposes to first acquire our consent.</p>
 									
 								
-								<h5>Ethical Considerations</h5>
+								<h4>Ethical Considerations</h4>
 								<p>Before we started our project, we read the IEEE Code of Ethics and we made sure to abide by it each step of the way. Foremost, we were not concerned with endangering the public or the environment as this lockbox is rather benign, but we understood that, should the box impose any dangers at any point, we would make them clear to the user. <br/><br/>
 								All data presented and claims made in this report are valid to the best of our knowledge, and we properly credited the contributions of others to our work. We accepted criticism of our work, whether it was from Bruce or another student. For example, one of our peers pointed out that it seemed peculiar that a user could not update the passwords necessary to unlock the box for what if an intruder learns the codes? We acknowledged this shortcoming of our work, and despite the immense amount of time this required, we added the necessary functionality to make our lockbox programmable.<br/><br/>
-								The IEEE Code of Ethics states that members of the IEEE community must seek to imporve the understanding of technology and its appropriate application, and we feel that we leveraged the functionalities of various sensors and technologies and applied them in a very unique way, one that is not obvious or commonplace. We are proud that our work further exemplifies the endless uses of a microcontroller, particularly the PIC32.  
+                                We felt that the project was honest and realistic in all its claims, and in addition to being a non-discriminatory product, is not a threat to injury or harm any person.
+                                <br/><br/>
+								The IEEE Code of Ethics states that members of the IEEE community must seek to improve the understanding of technology and its appropriate application, and we feel that we leveraged the functionalities of various sensors and technologies and applied them in a very unique way, one that is not obvious or commonplace. We feel that our work is helpful and innovative, which is true with the spirit of engineering and the IEEE Code of Ethics. We are proud that our work further exemplifies the endless uses of a microcontroller, particularly the PIC32.  
 
 								
-							    <h5>Legal Considerations</h5>
+							    <h4>Legal Considerations</h4>
 							    <p>There are no legal considerations for our lockbox. There has yet to be an intruder capable of unlocking the box and thus we have not had any legal issues.</p>
                                 
                                 <h2> Acknowledgements </h2>
@@ -236,12 +242,12 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 						<section id="seven">
 							<div class="container">
 								<h2>Appendix</h2>
-								<ul class="actions">
-									<li><!--<a href="code.html">--><input type="submit" class="special" value="Commented Code"></a></li>
-                                    <li><!--<a href="schematics.html">--><input type="submit" class="special" value="Schematics"></a></li>
-                                    <li></li>
-                                    <p>The group approves this report for inclusion on the course website.<br/>
+                                <p>The group approves this report for inclusion on the course website.
                                     The group approves the video for inclusion on the course youtube channel.</p>
+								<ul class="actions">
+									<li><a href="final_proj_4760_code_ta269_cb596_aj373.zip" download><input type="submit" class="special" value="Commented PIC32 Code"></a></li>
+                                    <li><a href="fps_code.zip" download><input type="submit" class="special" value="Commented Arduino Code for Fingerprint Scanner"></a></li>
+                                    
 								</ul>
 							</div>
 						</section>
@@ -346,7 +352,14 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
                             
                             <h5>Figures</h5>
                             <ul>
-                                <li><!--Figures 1, 9: digikey.com/schemeit--></li>
+                                <li><a href="images/lockbox_front.jpg" target="_blank">Figure 1</a></li>
+                                <li><a href="images/flowchart.JPG" target="_blank">Figure 2</a></li>
+                                <li><a href="images/Piezo+Pot.PNG" target="_blank">Figure 3</a></li>
+                                <li><a href="images/lab4_motor_circuit.png" target="_blank">Figure 4</a>, Credit to <a href="https://people.ece.cornell.edu/land/courses/ece4760/labs/f2016/lab4.html" target="_blank">Bruce Land, Cornell ECE 4760</a></li>
+                                <li><a href="images/keypad_brl4.JPG" target="_blank">Figure 5</a>, Credit to <a href="https://people.ece.cornell.edu/land/courses/ece4760/PIC32/index_TFT_display.html" target="_blank">Bruce Land, Cornell ECE 4760</a></li>
+                                <li><a href="images/tft_in_action.JPG" target="_blank">Figure 6</a></li>
+                                <li><a href="images/lockbox_front.jpg" target="_blank">Figure 7</a></li>
+                                <li><a href="images/lockbox_front.jpg" target="_blank">Figure 8</a></li>
                                 
                             </ul>
                             <h5>Tasks Carried Out By Team Members</h5>
