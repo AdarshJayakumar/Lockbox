@@ -172,11 +172,18 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 
 </p>
                                     <h4>Piezo</h4>
+                                    <p>The piezo protothread handles the piezo unlocking stage. This stage requires the user to knock the box in a certain 3-knock pattern. Our first task in writing this protothread was to determine how to record a  valid knock and to ensure that a single knock was not counted more than once. We connected the piezo output to an ADC channel on the PIC32 and stored in a variable the values read by the channel. We noticed that, when the user was not knocking the box, the value oscillated between 0 and approximately 15. We also noticed that, when we knocked the box and thus caused the piezo to vibrate, the ADC channel would record one or more consecutive values above approximately 30. Hence, we deduced that a valid knock occurs when the ADC channel records a value above this threshold. After each recorded knock, the PIC32 yields for 50 milliseconds so that values above the knock threshold that follow immediately after the valid knock are not counted. We felt that 50 milliseconds was an appropriate amount of time to yield because a user cannot physically hit the box more than once in 50 milliseconds.
+
+                                    <br/><br/>
+
+                                    Having determined what constitutes a single valid knock, we set out to determine what constitutes a valid knock sequence. We used time to distinguish various knock sequences. We first created our own knock sequence by having one partner knock the table and the other time the intervals between successive knocks. This, of course, provided crude data but it worked in creating our factory setting knock pattern. The code is written such that the microcontroller, after   
+
+                                    </p>
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
                                     <p></p>
 									<h4>Command Thread</h4>
-									<p>We set up a simple command thread that chose which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. Once the box has been unlocked, the command thread 
+									<p>We set up a simple command thread that chooses which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. This sets up cascading system quite nicely, as a user can only be in the potentiometer stage, for example, after they have passed the keypad stage. Once the box has been unlocked, the command thread moves into the configuration state, in which the user can choose to change the keypad, potentiometer, or piezo lock. At this configuration state, the user can also choose to return to the unlocking stage to unlock the box again and run through the four cascading systems.
                                     </p>
                                    
 									</div>
