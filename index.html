@@ -187,11 +187,24 @@
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
 
-                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked. It remains unlocked for three seconds, after which the solenoid valve closes again. The PIC32, moves onto the programmability state. </p>
+                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked and the PIC32 moves onto the programmability state. It remains unlocked for three seconds, after which the solenoid valve closes again. </p>
                                     <p></p>
 
                                     <h4>Programmability</h4>
-                                    <p>The keypad code, potentiometer combination, and piezo knock pattern can each be customized by the user. Once the box is unlocked, the user is given a list choose to change any of these passwords</p>
+                                    <p>When the box is in the unlocked state, the keypad code, potentiometer combination, and piezo knock pattern can each be customized by the user. The prototheads used to unlock the box are the same protothreads that are used to configure the passcodes. If the user chooses to change the keypad code, the same keypad FSM is used to read the values that the user inputs. Once a four-sequence value has been input, the user is asked whether they would like to keep this new code, keep their current code, or input a different code. 
+                                    <br/><br/>
+
+
+                                    To change the potentiometer combination, the user is asked to input new values for each potentiometer using the keypad. We chose to program the potentiometer combination using the keypad as opposed to the potentiometers themseleves to allow for an enhanced user experience. Using the keypad allows the user input exactly the combination that they would like. Although the factory settings require that each combination have a range of plus or minus 30, the user can choose a value that will not allow such a range. For example, the user can input 110 as the value for a potentiometer, in which case the range is bounded by 100 since the potentiometer values are mapped to (100,999). In this case, the user's range for that potentiometer would be (100,140). After inputting new values for each potentiometer, the user is shown their new combination range asked if they would like to update to the new combination, keep their current combination, or input a different combination.
+
+                                    <br/><br/>
+
+                                    Changing the piezo knock pattern requires the user to knock the box three times, in any rhythm or speed that they would like. The PIC32 records the relative times at which each of these knocks occur, and builds time intervals of plus or minus 300 milliseconds around them. This means that if the second knock occurs 600 milliseconds after the first knock, then the time interval for the second knock is (300,900). This may seem like an overly large interval for a knock to considered, but through trial and error, we found the programmability of the knock piezo to result in quite robust knock lock patterns. Also, a microcontroller is much more accurate than humans using a stopwatch in recording the times at which knocks occur. For this reason, the reprogrammed knock pattern seemed to even function better than the knock pattern that was shipped without the factory settings.
+
+
+                                    </p>
+
+
 									<h4>Command Thread</h4>
 									<p>We set up a simple command thread that chooses which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. This sets up cascading system quite nicely, as a user can only be in the potentiometer stage, for example, after they have passed the keypad stage. Once the box has been unlocked, the command thread moves into the configuration state, in which the user can choose to change the keypad, potentiometer, or piezo lock. At this configuration state, the user can also choose to return to the unlocking stage to unlock the box again and run through the four cascading systems.
                                     </p>
