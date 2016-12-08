@@ -172,11 +172,13 @@ Within the ‘Pushed’ state, we once again check if keycode is equal to possib
 
                                     <br/><br/>
 
-                                    The piezo took a significant amount of time to tune. At first, it was not clear what the threshold value for a valid knock should be, and finding a number that worked well took a significant amount of trial and error. This stage of the unlocking mechanism was particularly difficult to debug because it required the user to knock the box in a very precise manner. Thus, at times, we could not be sure if the piezo stage was malfunctioning due to a bug in the code or because we were not knocking the box with the correct rhytm. We were able to overcome this issue by increasing the intervals in which the second and third knocks would be considered valid knocks in the sequence while making sure to keep the restraints tight enough such that a rogue user could not simply knock the box three times and pass the piezo stage simply by luck.
+                                    The piezo took a significant amount of time to tune. At first, it was not clear what the threshold value for a valid knock should be, and finding a number that worked well took a significant amount of trial and error. This stage of the unlocking mechanism was particularly difficult to debug because it required the user to knock the box in a very precise manner. Thus, at times, we could not be sure if the piezo stage was malfunctioning due to a bug in the code or hardware or because we were not knocking the box with the correct rhythm. We were able to overcome this issue by increasing the intervals in which the second and third knocks would be considered valid knocks in the sequence while making sure to keep the restraints tight enough such that a rogue user could not simply knock the box three times and pass the piezo stage simply by luck.
 
                                     </p>
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
+
+                                    <p></p>
                                     <p></p>
 									<h4>Command Thread</h4>
 									<p>We set up a simple command thread that chooses which thread to run. During the unlocking stage, the command thread runs the code from keypad stage to potentiometer stage to piezo stage to fingerprint scanner stage. This sets up cascading system quite nicely, as a user can only be in the potentiometer stage, for example, after they have passed the keypad stage. Once the box has been unlocked, the command thread moves into the configuration state, in which the user can choose to change the keypad, potentiometer, or piezo lock. At this configuration state, the user can also choose to return to the unlocking stage to unlock the box again and run through the four cascading systems.
