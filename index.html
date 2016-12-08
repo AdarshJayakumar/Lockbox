@@ -206,7 +206,7 @@
                                     <p></p>
                                     <h4>Fingerprint Scanner</h4>
 
-                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32. Otherwise, it continously sends a LOW signal. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked and the PIC32 moves onto the programmability state. It remains unlocked for three seconds, after which the solenoid valve closes again. </p>
+                                    <p>To detect a valid fingerprint, we used an Arduino Fingerprint Scanner library built by Josh Hawley. When the PIC32 is in the fingerprint scanner state, it polls the Arduino for a HIGH input. When the Arduino senses a valid fingerprint, it sends a HIGH signal to the PIC32 and drives the solenoid valve to unlock the box. Otherwise, it continously sends a LOW signal to the PIC32. Once the PIC32 has sensed a HIGH signal from the Arduino, the box is unlocked and the PIC32 moves onto the programmability state. It remains unlocked for three seconds, after which the solenoid valve closes again. </p>
                                     <p></p>
 
                                     <h4>Programmability</h4>
@@ -242,7 +242,10 @@
                                     <p> This product is very easily usable by the general population, and is intended for those of all ages with basic reading and thinking skills. The box runs through each state, giving visual feedback to the user when each stage is reached and passed, as well as easy to follow instructions on resetting passcodes and such.</p>
                                         
                                     <h4> Integration </h4>
-                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 10: Lockbox Layout</i></span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning was essential to making the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were each placed inside the box itself. 
+                                    <p> <span class="image right"><img src="images/lockbox_top.jpg" width=400px alt="" /> <i>Figure 10: Lockbox Layout</i>
+                                    <span class="image right"><img src="images/insidebox.jpg" width=400px alt="" /> <i>Figure 10: Lockbox Layout</i>
+
+                                    </span>The integration of each portion of the lock box was done in a multi-step process. The box itself was quite small, so planning was essential to making the final product usable. The fingerprint scanner was placed in the bottom left of the box, with the keypad above it, and the TFT screen propped up on the right. When each individual component of the box was moved from the testing phase onto the box, the breadboards were substituted for perfboards to make the circuitry cleaner and less-space consuming. The perfboards, PIC32 microstick, and the Arduino were each placed inside the box itself. 
                                     </p>
                                     
                                     <h4> Safety in Design</h4>
